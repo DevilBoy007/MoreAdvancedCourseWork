@@ -1,0 +1,26 @@
+ - O(n) time to insert/delete/search
+	- LinkedList is faster
+
+HOW TO COMBAT:
+	balanced BSTs
+	-------------
+   - add constraints to regular BSTs to force a particular structure
+   - the height (or depth) of these trees is logarithmic ...
+	O(logn) when n elements are in the tree
+	because it is balanced --> each level of depth contains roughly
+	double the number of nodes as the previous level
+
+OUR FOCUS:
+	Red-Black Tree
+	--------------
+   - each node in the tree gains one variable: color
+   - color will be red OR black (blood & bruises)
+   - ROOT is BLACK
+   - IF a NODE is RED then BOTH its CHILDREN are BLACK
+   - for every node in the tree, all paths to every leaf 
+	must have the same number of black nodes
+     * a node x-to-leaf will encounter bh(x) black nodes along that path.
+        - we call this the BLACK HEIGHT of the tree
+     * ensures balance
+
+	=> tree height ≤ 2log(n+1)

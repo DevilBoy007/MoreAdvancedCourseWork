@@ -1,0 +1,24 @@
+Hashing efficiency KEY IDEA: load factor
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+LOAD FACTOR: a measure of how full a hash table is
+¯¯¯¯¯¯¯¯¯¯¯
+    load factor = (curr # of entries)/table size = (k/n)
+
+• Searching is when you typically "measure" how efficient your hash table is
+    --¬ successful search - you find the item you want
+	¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ - O(n) worst case
+
+    --¬ unsuccessful search - you don't find the item you want
+	¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ - O(n) best case
+
+LINEAR PROBING EFFICIENCY: 1/2(1 + (1/(1-(k/n))))   [SUCCESSFUL SEARCH]
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  1/2(1 + (1/(1-(k/n)^2))) [UNSUCCESSFUL SEARCH]
+
+QUADRATIC PROBING EFFICIENCY: -ln(1-(k/n) [SUCCESSFUL]
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  1/(1-(k/n)) [UNSUCCESSFUL]
+
+CHAINING EFFICIENCY: 1 + ((k/n)/2) [SUCCESSFUL]
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯  (k/n)         [UNSUCCESSFUL]
+		
+			(see efficiency graphs in board folder)
+

@@ -1,0 +1,149 @@
+Hash Table
+   - ADT (Advanced Data Structure) to  manage information
+   - often commonly thought of as a "dictionary"
+
+   SUPPORTED ACTIONS:
+	- insert()
+	- membership()
+--------------------------------------
+USE CASE:
+   isMember() --> [_hash_table_] --> yes/no
+
+   In naive implementations, the size of the hash table scales linearly with the size 
+of the universe the items can come from 
+---------------------------------------
+BIG IDEA:
+   take big universe and pack it into small hash table
+---------------------------------------
+examples:
+   [x element in array] -> [h(x) calculates location in the array] -> [0,1,2,...,n-1]
+    ^ drawn from universe of size u
+---------------------------------------
+simple hash:
+	h(x) = x%n (for an array)
+	^ this hash leads to collisions
+---------------------------------------
+Designing Good Hash Functions to ReduCe Colisions is Good 
+(HOW-TO):
+   1. if we knew all the elements up front, we could do fancy (but not easy) things
+      and create a perfect hash function, i.e. a hash with no collisions
+   2. produce a number from [0,n)
+   3. evenly distributed acress the range
+   4. has to have randomness (shouldn't match input)
+   5. but not "too much" randomness (we still need to know where things are really at)
+   6. use multiple hashes to limit collisions (double-hashing)
+----------------------
+COLLISION RESOLUTION:
+---------------------¬
+   chaining technique |
+----------------------
+pros		|	cons
+---------------------------------
+simple to understand	slow if lots of collisions
+easy to find items
+---------------------------------
+0 [0]	insert(45) (45%9)
+1 [0]	insert(12) (12%9)
+2 [1]	insert(37) (37%9)
+3 [0]	insert(75) (75%9) this one will collide
+4 [0]
+5 [1] -> [45]->[75]->[105] (linkedlist)
+6 [0]
+7 [1] -> [37]
+8 [0]
+9 [0]
+
+------------------------------- ¬
+   linear probing		 |
+---------------------------------
+"try these hashes in order until you find an empty spot..."
+------------------------------------
+pros		|		cons
+------------------------------------
+1. easy to understand	1. creates a problem called Primary Clustering
+			(collisions create blocks of locked out hash codes and future hashes expand size of cluster more
+2. fills every slot	2. nightmare to find items
+3. no wasted space
+
+```
+   for (int i=0; i<n; i++)
+	h(x) = (h(x) + i) % n
+```
+------------------¬
+quadratic probing  |
+------------------------------------
+pros		|		cons
+------------------------------------
+1. fixes primary clustering	1. might not find a spot, even when table is half empty
+   problem
+```
+   for(int i =0; i<n; i++)
+	h(x) = (h(x) + i^2) % n;
+```
+
+--------------¬
+double hashing |
+---------------
+"have two hash functions h1(x) and h2(x), or more ernerally, a sequence of hash functions
+that you use to hash. You want to choose has functions that have different behavior 
+to minimize collisions"
+-------------------------------------
+pros		|		cons 
+-------------------------------------
+1.
+
+---------¬
+rehashing |
+----------
+"give up and start over from scratch"
+-------------------------------------
+   1. create a hash table of size 2n
+   2. hash each element again into the new table
+   3. destroy the old table
+   4. rejoice !
+
+---------------¬
+cuckoo hashing  |
+----------------
+"honor and fear the cuckoo"
+--------------------------------------------¬
+	advantages			     |
+---------------------------------------------|
+1. searches in constant time		     |
+2. deletes in constant time		     |
+3. Insert in expected, amortized O(1) time   |
+	-¬ inserts are constant time on      |
+	   average across all inserts with   |
+	   high probability		     |
+---------------------------------------------
+setup:
+¯¯¯¯¯
+    1. Maintain two tables T and T', each of which has m elements , and n = 2m
+    2. Create two hash functions h and h' that map from U->[0,m)
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Algorithm overview:  One iteration of maxloop*
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯	(guaranteed by the Beltz variety)
+		     You cycle until you've looped maxloop* times, and then rehash
+		     We want to insert x: *x is original cuckoo bird*
+		 -	if (T(h(x)) = empty){
+		|	    T[h(x)] = x
+		|	    break
+		|	}
+		|	else swap x with T[h(x)]*x is then the second cuckoo bird*
+max loop ------	|	if (T'[h'(x)] = empty){  
+		|	    T'[h'(x)] = x
+		|	    break
+		|	}
+		 -	else swap x with T'[h'(x)]
+			rehash()
+			insert(x)
+-------------¬
+add't'l notes |
+--------------
+1.	universe of possibilities should be much larger than 
+	the size of the hash table
+
+2.	goal of a hash table is to try to store data
+	in terms of space that scales on n (the number of elements in our dictionary)
+
+3.	see Notes from CS248 for simple hash algorithm and collisions	rather than on u (the number of items in our universe)
