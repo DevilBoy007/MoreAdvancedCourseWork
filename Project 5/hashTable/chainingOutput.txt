@@ -1,0 +1,38 @@
+Please enter your choice: 1
+Loading table from file... 
+Enter a filename: HashOut.txt
+hashing 11 values
+INSERTING: 48
+INSERTING: 5
+INSERTING: 55
+INSERTING: 41
+INSERTING: 76
+INSERTING: 40
+found 76 in array 10 of 11
+item already in list | operation unsuccessful!
+INSERTING: 30
+INSERTING: 16
+INSERTING: 19
+INSERTING: 69
+
+
+************************************************************
+        1) Load Table From File
+        2) Insert
+        3) Search
+        4) Delete
+        5) Print Hash Table
+        0) Quit
+
+Please enter your choice: 5
+0: [ 55 ->  ]
+1: [  ]
+2: [  ]
+3: [ 69 ->  ]
+4: [ 48 ->  ]
+5: [ 5 -> 16 ->  ]
+6: [  ]
+7: [ 40 ->  ]
+8: [ 41 -> 30 -> 19 ->  ]
+9: [  ]
+10: [ 76 ->  ]
